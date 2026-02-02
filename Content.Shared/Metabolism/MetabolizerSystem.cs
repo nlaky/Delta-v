@@ -174,9 +174,9 @@ public sealed class MetabolizerSystem : EntitySystem
                 continue;
 
             // begin starcup: metabolizer whitelist
-            if (evWhitelist.Reagents.Count > 0)
+            if (ent.Comp1.ReagentWhitelist != null)
             {
-                if (!evWhitelist.Reagents.Contains(proto))
+                if (!ent.Comp1.ReagentWhitelist.Contains(proto))
                     continue;
             }
             // end starcup
