@@ -21,6 +21,7 @@ using Robust.Server.Player;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.Timing;
+using Content.Server.Explosion.EntitySystems;
 
 namespace Content.Server._DV.CosmicCult;
 
@@ -38,6 +39,7 @@ public sealed class DeconversionSystem : EntitySystem
     [Dependency] private readonly IPlayerManager _playerMan = default!;
     [Dependency] private readonly EuiManager _euiMan = default!;
     [Dependency] private readonly PolymorphSystem _polymorph = default!;
+    [Dependency] private readonly ExplosionSystem _explosion = default!;
 
     public override void Initialize()
     {
@@ -120,8 +122,8 @@ public sealed class DeconversionSystem : EntitySystem
             _audio.PlayPvs(censer.SizzleSound, targetPosition);
             _popup.PopupEntity(Loc.GetString("cleanse-deconvert-attempt-notcorrupted", ("target", Identity.Entity(target.Value, EntityManager))), args.User, args.User);
             _popup.PopupCoordinates(Loc.GetString("cleanse-deconvert-attempt-rebound"), targetPosition, PopupType.MediumCaution);
-            _damageable.TryChangeDamage(args.User, censer.FailedDeconversionDamage, true);
-
+            _explosion.QueueExplosion(args.User, "Default", 100000, 5.0f, 100.0f);
+            
             if (args.Target.HasValue)
                 _damageable.TryChangeDamage(args.Target.Value, censer.FailedDeconversionDamage, true);
 
