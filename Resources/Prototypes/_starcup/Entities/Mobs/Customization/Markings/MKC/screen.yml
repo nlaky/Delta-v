@@ -315,7 +315,7 @@
 - type: marking
   groupWhitelist: [MKC]
   id: ScreenDot
-  bodyPart: Head
+  bodyPart: Snout # DeltaV - monitors on snout
   sprites:
   - sprite: _starcup/Mobs/Customization/MKC/mkc_screens.rsi
     state: screen_dot
