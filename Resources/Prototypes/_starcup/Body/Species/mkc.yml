@@ -15,6 +15,9 @@
       limit: 1
       required: true
       default: [ MobMKCHeadDefault ]
+    enum.HumanoidVisualLayers.Snout: # DeltaV - move monitor markings to snout
+      limit: 1
+      required: false
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: false
