@@ -130,8 +130,7 @@
     shiveringHeatRegulation: 1000 # from 2000
     normalBodyTemperature: 310.15
     thermalRegulationTemperatureThreshold: 10 # from 2
-  - type: EmpResistance # DeltaV
-    strengthMultiplier: 0.5 # DeltaV
+  - type: TriggerOnEmp
   - type: StunOnTrigger
     stunAmount: 10
   - type: KnockdownOnTrigger
