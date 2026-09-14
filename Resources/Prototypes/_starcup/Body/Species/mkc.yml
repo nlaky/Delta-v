@@ -11,13 +11,10 @@
       limit: 1
       onlyGroupWhitelisted: false
       required: false
-    enum.HumanoidVisualLayers.HeadBase:
+    enum.HumanoidVisualLayers.Head:
       limit: 1
       required: true
       default: [ MobMKCHeadDefault ]
-    enum.HumanoidVisualLayers.Head:
-      limit: 1
-      required: false
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: false
@@ -130,7 +127,8 @@
     shiveringHeatRegulation: 1000 # from 2000
     normalBodyTemperature: 310.15
     thermalRegulationTemperatureThreshold: 10 # from 2
-  - type: TriggerOnEmp
+  - type: EmpResistance # DeltaV
+    strengthMultiplier: 0.5 # DeltaV
   - type: StunOnTrigger
     stunAmount: 10
   - type: KnockdownOnTrigger
