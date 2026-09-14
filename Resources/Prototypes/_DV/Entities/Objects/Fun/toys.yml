@@ -91,6 +91,7 @@
   id: PlushieIPC
   name: MKC plushie # starcup: ipc -> mkc
   description: A massive robo-plushie. The screen might be hard plastic, but the rest of it is soft and cuddly!
+  components:
   - type: EmitSoundOnUse
     sound:
       path: /Audio/_starcup/Voice/MKC/pai_whistle.ogg
