@@ -78,7 +78,7 @@
       LegRight: OrganMKCLegRight
       FootLeft: OrganMKCFootLeft
       FootRight: OrganMKCFootRight
-      Brain: PositronicBrain
+      Brain: OrganMKCBrain # Delta V - Switch to unique brain
       Eyes: OrganMKCEyes
       Tongue: OrganMKCVocalSynth
       Ears: OrganMKCSonicReceptors
@@ -169,6 +169,7 @@
   components:
   - type: Sprite
     sprite: _starcup/Mobs/Species/MKC/organs.rsi
+  - type: GibbableOrgan # Delta V - Make all MKC organs physical 
 
 - type: entity
   id: OrganMKCVisual
@@ -361,3 +362,15 @@
       types:
         Piercing: 1
     ejectionDamageMultiplier: 0.8  # per unit of expelled reagent
+
+# Begin Delta V - Define MKC unique brain
+- type: entity
+  parent: [ OrganBaseBrain, OrganMKCInternal ]
+  id: OrganMKCBrain
+  name: quantum brain
+  components:
+  - type: BorgBrain
+  - type: Sprite
+    layers:
+    - state: power_core # placeholder
+# End Delta V - Define MKC unique brain
