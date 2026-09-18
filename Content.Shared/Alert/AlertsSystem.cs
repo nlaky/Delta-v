@@ -1,17 +1,19 @@
 using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
+using Content.Shared.ActionBlocker;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.Alert;
 
-public abstract class AlertsSystem : EntitySystem
+public abstract partial class AlertsSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private ActionBlockerSystem _actionBlocker = default!;
 
-    private EntityQuery<AlertsComponent> _alertsQuery;
+    [Dependency] private EntityQuery<AlertsComponent> _alertsQuery = default!;
     private FrozenDictionary<ProtoId<AlertPrototype>, AlertPrototype> _typeToAlert = default!;
 
     public override void Initialize()
@@ -378,6 +380,10 @@ public abstract class AlertsSystem : EntitySystem
     public bool ActivateAlert(EntityUid user, AlertPrototype alert)
     {
         if (alert.ClickEvent is not { } clickEvent)
+            return false;
+
+        if ((alert.CheckConsciousness && !_actionBlocker.CanConsciouslyPerformAction(user))
+            || (alert.CheckCanInteract && !_actionBlocker.CanInteract(user, null)))
             return false;
 
         clickEvent.Handled = false;
