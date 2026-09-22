@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Content.Shared._DV.MKC;
 using Content.Shared.Body;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction.Events;
@@ -162,6 +163,10 @@ public abstract class SharedPowerCoreSystem : EntitySystem
         if (HasComp<PowerDrinkableComponent>(args.Args.Target))
             return;
 
+        // DeltaV - drinkable blacklist component
+        if (HasComp<PowerDrinkableBlacklistComponent> (args.Args.Target))
+            return;
+
         var target = args.Args.Target;
 
         InnateVerb verb = new()
@@ -186,6 +191,10 @@ public abstract class SharedPowerCoreSystem : EntitySystem
             return;
 
         if (!HasComp<BatteryComponent>(args.Target))
+            return;
+
+        // DeltaV - drinkable blacklist component
+        if (HasComp<PowerDrinkableBlacklistComponent>(args.Target))
             return;
 
         if (!TryGetPowerCore(args.User, out var powerCore))
@@ -213,6 +222,10 @@ public abstract class SharedPowerCoreSystem : EntitySystem
             return;
 
         if (!HasComp<BatteryComponent>(entity))
+            return;
+
+        // DeltaV - drinkable blacklist component
+        if (HasComp<PowerDrinkableBlacklistComponent>(entity))
             return;
 
         if (!TryGetPowerCore(args.User, out var powerCore))
