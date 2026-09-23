@@ -116,6 +116,7 @@
   - EmergencyOxygen
   - LoadoutSpeciesVoxNitrogen
   - EmergencyWaterVapor # DeltaV
+  - EmergencyBoxMKC # starcup
 
 # nitrogen or oxygen tank, depending on what your species needs
 - type: loadoutGroup
@@ -785,6 +786,7 @@
   - EmergencyOxygenClown
   - LoadoutSpeciesVoxNitrogen
   - EmergencyWaterVaporClown # DeltaV
+  - EmergencyBoxMKC # starcup
 
 - type: loadoutGroup
   id: ClownJobTrinkets
@@ -865,6 +867,7 @@
   - EmergencySpeciesMothMime
   - LoadoutSpeciesVoxNitrogen
   - EmergencyWaterVaporMime # DeltaV
+  - EmergencyBoxMKC # starcup
 
 - type: loadoutGroup
   id: MimeJobTrinkets
@@ -1271,6 +1274,7 @@
   - EmergencyOxygenExtended
   - LoadoutSpeciesVoxNitrogen
   - EmergencyWaterVaporExtended # DeltaV
+  - EmergencyBoxMKC # starcup
 
 # Science
 - type: loadoutGroup
@@ -1990,6 +1994,7 @@
   - EmergencyOxygenMedical
   - LoadoutSpeciesVoxNitrogen
   - EmergencyWaterVaporMedical # DeltaV
+  - EmergencyBoxMKC # starcup
 
 # Wildcards
 - type: loadoutGroup
@@ -2056,6 +2061,7 @@
   - EmergencyOxygenSyndicate
   - LoadoutSpeciesVoxNitrogen
   - EmergencyWaterVaporSyndicate # DeltaV
+  - EmergencyBoxMKC # starcup
 
 - type: loadoutGroup
   id: SurvivalMilitaryDouble
