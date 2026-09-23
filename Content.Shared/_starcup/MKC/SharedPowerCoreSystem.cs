@@ -12,6 +12,7 @@ using Content.Shared.Verbs;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
+using Content.Shared.Hands.EntitySystems; // DeltaV - cancel doafter on drop
 
 // ReSharper disable InconsistentNaming
 
@@ -31,6 +32,7 @@ public abstract class SharedPowerCoreSystem : EntitySystem
     [Dependency] private readonly SharedJetpackSystem _jetpack = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movementSpeed = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!; // DeltaV - cancel doafter on drop
 
     private readonly SoundSpecifier? _drainSounds = new SoundCollectionSpecifier("sparks");
 
@@ -273,6 +275,7 @@ public abstract class SharedPowerCoreSystem : EntitySystem
             BreakOnMove = false,
             BreakOnHandChange = false,
             BreakOnDamage = true,
+            NeedHand = _hands.IsHolding(bodyUid.Value, target), // DeltaV - stop power drink on dropping cell
         });
         return true;
     }
