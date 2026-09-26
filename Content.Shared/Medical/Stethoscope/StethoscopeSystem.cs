@@ -98,13 +98,18 @@ public sealed class StethoscopeSystem : EntitySystem
         // TODO: Add check for respirator component when it gets moved to shared.
         // If the mob is dead or cannot asphyxiation damage, the popup shows nothing.
         if (!TryComp<MobStateComponent>(target, out var mobState)                        ||
-            _mobState.IsDead(target, mobState)                                           ||
-            !_damageable.GetAllDamage(target).DamageDict.TryGetValue(DamageToListenFor, out var asphyxDmg))
+            _mobState.IsDead(target, mobState)) //                                           || // DeltaV - remove damage check
+//            !_damageable.GetAllDamage(target).DamageDict.TryGetValue(DamageToListenFor, out var asphyxDmg)) // DeltaV - 0 dmg fails check
         {
             _popup.PopupPredicted(Loc.GetString("stethoscope-nothing"), target, user);
             stethoscope.Comp.LastMeasuredDamage = null;
             return;
         }
+
+        // Begin DeltaV - asphyx damage check defaults to 0
+        if (!_damageable.GetAllDamage(target).DamageDict.TryGetValue(DamageToListenFor, out var asphyxDmg))
+            asphyxDmg = 0;
+        // End DeltaV - asphyx damage check defaults to 0
 
         var absString = GetAbsoluteDamageString(asphyxDmg);
 
