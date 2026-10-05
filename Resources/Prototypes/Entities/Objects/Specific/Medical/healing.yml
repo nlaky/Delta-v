@@ -316,6 +316,7 @@
     damageContainers:
       - Biological
       - BiologicalMetaphysical # DeltaV
+      - HumanoidSilicon # starcup: MKCs
     damage:
       types:
         Slash: -5
