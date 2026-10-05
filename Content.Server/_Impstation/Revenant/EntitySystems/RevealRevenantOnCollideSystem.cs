@@ -46,8 +46,7 @@ public sealed partial class RevealRevenantOnCollideSystem : SharedRevealRevenant
         );
 
         // Disable collision wake so that it can trigger collisions even when sitting still
-        var collisionWake = EnsureComp<CollisionWakeComponent>(uid);
-        _collisionWake.SetEnabled(uid, false, collisionWake);
+        RemComp<CollisionWakeComponent>(uid);
     }
 
     private void OnShutdown(EntityUid uid, RevealRevenantOnCollideComponent comp, ComponentShutdown args)
