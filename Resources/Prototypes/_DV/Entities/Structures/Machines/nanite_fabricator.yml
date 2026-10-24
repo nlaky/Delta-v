@@ -1,0 +1,59 @@
+- type: entity
+  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  id: NaniteFabricator
+  name: nanite fabricator
+  components:
+  - type: Sprite
+    sprite: _DV/Structures/Machines/nanite_fabricator.rsi
+    snapCardinals: true
+    layers:
+    - state: idle
+      map: ["enum.FabricatorVisualLayers.Base"]
+    - state: animation
+      map: ["enum.FabricatorVisualLayers.BaseUnlit"]
+      visible: false
+    - state: broken
+      visible: false
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.FabricatorVisualState.Running:
+        enum.FabricatorVisualLayers.BaseUnlit:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 5
+  - type: PowerState
+    idlePowerDraw: 5
+    workingPowerDraw: 1000
+  - type: Machine
+    board: NaniteFabricatorMachineCircuitboard
+  - type: ContainerContainer
+    containers:
+      fabricator_entity_container: !type:Container
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: EmptyOnMachineDeconstruct
+    containers:
+    - fabricator_entity_container
+  - type: ActivatableUI
+    key: enum.FabricatorUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.FabricatorUiKey.Key:
+        type: FabricatorBoundUserInterface # I HATE UI
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Fabricator
+    recipeGroups:
+    - Nanites
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Metallic
+  - type: WiresVisuals
+  - type: WiresPanel
+  - type: Wires
+    layoutId: Fabicator # Someone else misspelled it

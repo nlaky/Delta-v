@@ -10,6 +10,7 @@ using Content.Shared.FixedPoint;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
+using Content.Shared.Item.ItemToggle; // DeltaV - tool healing
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
@@ -19,7 +20,7 @@ using Robust.Shared.Audio.Systems;
 
 namespace Content.Shared.Medical.Healing;
 
-public sealed class HealingSystem : EntitySystem
+public sealed partial class HealingSystem : EntitySystem // DeltaV - partial
 {
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
@@ -36,7 +37,7 @@ public sealed class HealingSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<HealingComponent, UseInHandEvent>(OnHealingUse);
+        SubscribeLocalEvent<HealingComponent, UseInHandEvent>(OnHealingUse, after: [typeof(ItemToggleSystem)]); // DeltaV - after ItemToggle (for tool healing)
         SubscribeLocalEvent<HealingComponent, AfterInteractEvent>(OnHealingAfterInteract);
         SubscribeLocalEvent<DamageableComponent, HealingDoAfterEvent>(OnDoAfter);
     }
@@ -48,6 +49,10 @@ public sealed class HealingSystem : EntitySystem
             return;
 
         if (!TryComp(args.Used, out HealingComponent? healing))
+            return;
+
+        // DeltaV - re-check if we can use tool
+        if (!CanUseTool(args.Used.Value, target, args.User))
             return;
 
         if (healing.DamageContainers is not null &&
@@ -91,7 +96,7 @@ public sealed class HealingSystem : EntitySystem
             if (_stacks.GetCount((args.Used.Value, stackComp)) <= 0)
                 dontRepeat = true;
         }
-        else
+        else if (healing.DeleteOnUse) // DeltaV - allow item to not be deleted
         {
             PredictedQueueDel(args.Used.Value);
         }
@@ -198,6 +203,10 @@ public sealed class HealingSystem : EntitySystem
             _popupSystem.PopupClient(Loc.GetString("medical-item-cant-use", ("item", healing.Owner)), healing, user);
             return false;
         }
+
+        // DeltaV - check if we can use tool
+        if (!CanUseTool(healing, target, user))
+            return false;
 
         _audio.PlayPredicted(healing.Comp.HealingBeginSound, healing, user);
 
