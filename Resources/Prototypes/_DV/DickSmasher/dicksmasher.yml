@@ -1,0 +1,27 @@
+- type: entity
+  id: DickSmasher
+  parent: BaseItem
+  name: dick smasher
+  description: Smashes your dick.
+  components:
+  - type: Sprite
+    sprite: Nyanotrasen/Objects/Weapons/Melee/breaching_hammer.rsi
+    state: icon
+  - type: Item
+    size: Ginormous
+  - type: DickSmasher
+    outcomes:
+    - message: You halfheartedly smash your dick. Ouch.
+      damage:
+        types:
+          Blunt: 10
+    - message: You smash your dick a bit harder. Ouch!
+      timesRequired: 1
+      damage:
+        types:
+          Blunt: 20
+    - message: You smash your dick extremely hard. OUCH!!!
+      timesRequired: 3
+      damage:
+        types:
+          Blunt: 80
