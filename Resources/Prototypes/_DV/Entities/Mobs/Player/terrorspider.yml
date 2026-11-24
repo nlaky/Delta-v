@@ -146,12 +146,14 @@
           Piercing: 15
     - damageBegin: 1 # any damage
       increasedIntoMessage: spider-enrage-stage-one
+      increasedPopupType: MediumCaution
       decreasedIntoMessage: spider-enrage-lower
       meleeDamage:
         types:
           Piercing: 25
     - damageBegin: 100 # half health
       increasedIntoMessage: spider-enrage-stage-two
+      increasedPopupType: LargeCaution
       meleeDamage:
         types:
           Piercing: 35

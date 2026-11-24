@@ -38,12 +38,18 @@ public sealed class MeleeHealthDamageModifierSystem : EntitySystem
 
         TrySetMeleeDamage(ent, stage.MeleeDamage);
 
-        var locString = ent.Comp.StageIndex < stage.DamageBegin
+        var increased = ent.Comp.StageIndex < stage.DamageBegin;
+
+        var locString = increased
             ? stage.IncreasedIntoMessage
             : stage.DecreasedIntoMessage;
 
+        var popupType = increased
+            ? stage.IncreasedPopupType
+            : stage.DecreasedPopupType;
+
         if (locString is not null)
-            _popup.PopupPredicted(Loc.GetString(locString, ("source", ent)), ent, user);
+            _popup.PopupPredicted(Loc.GetString(locString, ("source", ent)), ent, user, popupType);
 
         ent.Comp.StageIndex = stage.DamageBegin;
         Dirty(ent);

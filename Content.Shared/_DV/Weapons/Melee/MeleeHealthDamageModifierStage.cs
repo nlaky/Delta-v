@@ -1,4 +1,5 @@
 using Content.Shared.Damage;
+using Content.Shared.Popups;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._DV.Weapons.Melee;
@@ -29,6 +30,12 @@ public sealed partial class MeleeHealthDamageModifierStage
     public string? IncreasedIntoMessage;
 
     /// <summary>
+    /// The popup type to use when increasing into the stage
+    /// </summary>
+    [DataField]
+    public PopupType IncreasedPopupType = PopupType.Small;
+
+    /// <summary>
     /// The message for the popup shown when this tier is exited
     /// Leave null for no popup
     /// </summary>
@@ -37,4 +44,10 @@ public sealed partial class MeleeHealthDamageModifierStage
     /// </remarks>
     [DataField]
     public string? DecreasedIntoMessage;
+
+    /// <summary>
+    /// The popup type to use when decreasing into the stage
+    /// </summary>
+    [DataField]
+    public PopupType DecreasedPopupType = PopupType.Small;
 }
