@@ -130,10 +130,28 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      150: Dead
+      200: Dead
   - type: Spider
     webPrototype: SpiderWebReinforced
     webAction: ActionReinforcedSpiderWeb
   - type: MovementSpeedModifier
     baseWalkSpeed: 2.5
     baseSprintSpeed: 3.0
+  - type: MeleeHealthDamageModifier
+    stages:
+    - damageBegin: 0
+      decreasedIntoMessage: spider-enrage-lower
+      meleeDamage:
+        types:
+          Piercing: 15
+    - damageBegin: 1 # any damage
+      increasedIntoMessage: spider-enrage-stage-one
+      decreasedIntoMessage: spider-enrage-lower
+      meleeDamage:
+        types:
+          Piercing: 25
+    - damageBegin: 100 # half health
+      increasedIntoMessage: spider-enrage-stage-two
+      meleeDamage:
+        types:
+          Piercing: 35
