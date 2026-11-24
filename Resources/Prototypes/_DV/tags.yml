@@ -79,6 +79,9 @@
   id: GasPipeHalf #Craftable Musket
 
 - type: Tag
+  id: GreyTerrorSpiderStealth # Entities that make grey terror spider enable stealth
+
+- type: Tag
   id: HandLabeler
 
 - type: Tag

@@ -157,3 +157,30 @@
       meleeDamage:
         types:
           Piercing: 35
+
+- type: entity
+  id: MobGrayTerrorSpider
+  parent: MobTerrorSpider
+  name: gray terror spider
+  description: An ominous-looking gray spider. It seems to blend into webs, making it hard to see.
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base", "movement"]
+      state: spider
+      sprite: _DV/Mobs/TerrorSpiders/gray.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: Dead
+  - type: Spider
+    webPrototype: SpiderWebStealth
+    webAction: ActionStealthSpiderWeb
+  - type: Stealth
+    hadOutline: true
+  - type: StealthOnEntity
+    visibility: 0.25
+    entities:
+      tags:
+      - GreyTerrorSpiderStealth

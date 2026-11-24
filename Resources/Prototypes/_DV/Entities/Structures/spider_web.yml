@@ -1,5 +1,5 @@
 - type: entity
-  parent: SpiderWebBase
+  parent: SpiderWeb
   id: SpiderWebTerrorSpider
   abstract: true
   name: terror spider web
@@ -10,10 +10,10 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 50
+        damage: 30
       behaviours:
       - !type:DoActsBehavior
-        acts: ["Destructions"]
+        acts: ["Destruction"]
 
 - type: entity
   parent: SpiderWebTerrorSpider
@@ -21,6 +21,8 @@
   name: reinforced web
   description: This web is reinforced with extra strands, for added strength.
   components:
+  - type: Sprite
+    color: "#686868ff"
   - type: Destructible
     thresholds:
     - trigger:
@@ -29,3 +31,16 @@
       behaviours:
       - !type:DoActsBehavior
         acts: ["Destructions"]
+
+- type: entity
+  parent: SpiderWebTerrorSpider
+  id: SpiderWebStealth
+  name: transparent web
+  # TODO make web actually partially transparent
+  description: This web is partially transparent, making it harder to see, and easier to get caught by.
+  components:
+  - type: Sprite
+    color: "#a3a3ff88"
+  - type: Tag
+    tags:
+    - GreyTerrorSpiderStealth

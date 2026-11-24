@@ -1,10 +1,9 @@
 - type: entity
-  parent: BaseAction
+  parent: ActionSpiderWeb
   id: ActionReinforcedSpiderWeb
   description: Spawns a reinforced web with extra health.
-  components:
-  - type: Action
-    icon: Interface/Actions/web.png
-    useDelay: 25
-  - type: InstantAction
-    event: !type:SpiderWebActionEvent
+
+- type: entity
+  parent: ActionSpiderWeb
+  id: ActionStealthSpiderWeb
+  description: Spawns a transparent web with stealth effects.
