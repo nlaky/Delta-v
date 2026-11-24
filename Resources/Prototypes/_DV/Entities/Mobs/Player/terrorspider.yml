@@ -1,0 +1,139 @@
+- type: entity
+  parent: [ SimpleSpaceMobBase, MobCombat, BaseMobHemocyanin ]
+  id: MobTerrorSpider
+  name: terror spider
+  abstract: true
+  components:
+  - type: Bloodstream
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: CopperBlood
+        Quantity: 300
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: spider
+      Critical:
+        Base: dead
+      Dead:
+        Base: dead
+  - type: GhostRole
+    makeSentient: true
+    # TODO name, description, rules locale
+    name: terror spider
+    description: scary
+    rules: be evil
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable
+  - type: HTN
+    rootTask:
+      task: XenoCompound
+    blackboard:
+      NavInteract: !type:Bool
+        true
+      NavPry: !type:Bool
+        false
+      NavSmash: !type:Bool
+        true
+  - type: NpcFactionMember
+    factions:
+    - Xeno
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    animation: WeaponArcBite
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    damage:
+      types:
+        Piercing: 20
+  - type: NightVision
+    color: "#808080"
+  - type: Puller
+    needsHands: false
+  - type: NoSlip
+  - type: Spider
+  - type: IgnoreSpiderWeb
+  - type: PassiveDamage
+    allowedStates:
+    - Alive
+    damage:
+      types:
+        Poison: -0.07
+        Blunt: -0.03
+        Slash: -0.03
+        Piercing: -0.03
+        Heat: -0.03
+        Cold: -0.03
+        Shock: -0.03
+  - type: Speech
+    speechVerb: Arachnid
+    speechSounds: Arachnid
+    allowedEmotes: ['Click', 'Chitter', 'Hiss']
+  - type: Vocal
+    sounds:
+      Male: UnisexArachnid
+      Female: UnisexArachnid
+      Unsexed: UnisexArachnid
+  - type: TypingIndicator
+    proto: spider
+  - type: ReplacementAccent
+    accent: xeno
+  - type: Tag # TODO needed?
+    tags:
+    - DoorBumpOpener
+    - FootstepSound
+
+- type: entity
+  id: MobTerrorSpiderDoorPry
+  parent: MobTerrorSpider
+  abstract: true
+  components:
+  - type: Prying
+    pryPowered: true
+    force: true
+    speedModifier: 2
+    useSound:
+      path: /Audio/Items/crowbar.ogg
+
+- type: entity
+  id: MobTerrorSpiderInjector
+  parent: MobTerrorSpider
+  abstract: true
+  components:
+  - type: MeleeChemicalInjector
+    transferAmount: 5
+    solution: melee
+  - type: SolutionRegeneration
+    solution: melee
+    generated:
+      reagents:
+      - ReagentId: Mechanotoxin
+        Quantity: 5
+
+# https://github.com/ParadiseSS13/Paradise/blob/master/code/modules/mob/living/simple_animal/hostile/terror_spiders/red.dm
+- type: entity
+  id: MobRedTerrorSpider
+  parent: MobTerrorSpiderDoorPry
+  name: red terror spider
+  description: An ominous-looking red spider, it has eight beady red eyes, and nasty, big, pointy fangs! It looks like it has a vicious streak a mile wide.
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base", "movement"]
+      state: spider
+      sprite: _DV/Mobs/TerrorSpiders/red.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      150: Dead
+  - type: Spider
+    webPrototype: SpiderWebReinforced
+    webAction: ActionReinforcedSpiderWeb
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 3.0

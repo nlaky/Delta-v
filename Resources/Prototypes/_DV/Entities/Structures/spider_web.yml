@@ -1,0 +1,31 @@
+- type: entity
+  parent: SpiderWebBase
+  id: SpiderWebTerrorSpider
+  abstract: true
+  name: terror spider web
+  components:
+  - type: Flammable
+    fireSpread: false
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviours:
+      - !type:DoActsBehavior
+        acts: ["Destructions"]
+
+- type: entity
+  parent: SpiderWebTerrorSpider
+  id: SpiderWebReinforced
+  name: reinforced web
+  description: This web is reinforced with extra strands, for added strength.
+  components:
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviours:
+      - !type:DoActsBehavior
+        acts: ["Destructions"]

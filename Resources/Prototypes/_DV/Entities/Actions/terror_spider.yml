@@ -1,0 +1,10 @@
+- type: entity
+  parent: BaseAction
+  id: ActionReinforcedSpiderWeb
+  description: Spawns a reinforced web with extra health.
+  components:
+  - type: Action
+    icon: Interface/Actions/web.png
+    useDelay: 25
+  - type: InstantAction
+    event: !type:SpiderWebActionEvent
