@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ SimpleSpaceMobBase, MobCombat, BaseMobHemocyanin ]
+  parent: [ SimpleMobBase, MobCombat, BaseMobHemocyanin ] # TODO deal with hunger/thirst from SimpleMobBase
   id: MobTerrorSpider
   name: terror spider
   abstract: true
