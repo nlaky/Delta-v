@@ -1,6 +1,7 @@
 - type: entity
   parent: ActionSpiderWeb
   id: ActionReinforcedSpiderWeb
+  name: Reinforced Web
   description: Spawns a reinforced web with extra health.
   components:
   - type: Action
@@ -9,6 +10,7 @@
 - type: entity
   parent: ActionSpiderWeb
   id: ActionStealthSpiderWeb
+  name: Transparent Web
   description: Spawns a transparent web with stealth effects.
   components:
   - type: Action
