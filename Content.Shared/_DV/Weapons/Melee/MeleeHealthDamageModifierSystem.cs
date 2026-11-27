@@ -1,4 +1,5 @@
 using Content.Shared.Damage;
+using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Popups;
@@ -15,14 +16,16 @@ public sealed class MeleeHealthDamageModifierSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<MeleeHealthDamageModifierComponent, DamageChangedEvent>(OnDamageChanged);
+        SubscribeLocalEvent<MeleeHealthDamageModifierComponent, DamageDealtEvent>(OnDamageDealt);
         // TODO inventory/hand relayed damage change?
     }
 
-    private void OnDamageChanged(Entity<MeleeHealthDamageModifierComponent> ent, ref DamageChangedEvent args)
+    private void OnDamageDealt(Entity<MeleeHealthDamageModifierComponent> ent, ref DamageDealtEvent args)
     {
-        // method is deprecated but can't find any other way to do this
-        var damageTotal = _damageable.GetTotalDamage((ent, args.Damageable));
+        if (!TryComp(ent, out DamageableComponent? damageComp))
+            return;
+
+        var damageTotal = _damageable.GetPositiveDamage((ent, damageComp)).GetTotal();
 
         if (GetCurrentStage(ent.Comp.Stages, damageTotal) is not { } stage)
             return;
