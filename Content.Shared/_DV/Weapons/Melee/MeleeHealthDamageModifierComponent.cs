@@ -16,12 +16,12 @@ public sealed partial class MeleeHealthDamageModifierComponent : Component
     /// Needs to be ordered lowest damage first->highest damage last to work properly
     /// </remarks>
     [DataField(required: true)]
-    public List<MeleeHealthDamageModifierStage> Stages;
+    public SortedDictionary<int, MeleeHealthDamageModifierStage> Stages;
 
     /// <summary>
     /// Contains the damage start amount of the current stage.
     /// Used to check if the stage has changed
     /// </summary>
     [DataField, AutoNetworkedField]
-    public int StageIndex = 0;
+    public int CurrentStage = 0;
 }

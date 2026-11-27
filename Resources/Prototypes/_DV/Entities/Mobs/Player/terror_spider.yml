@@ -139,24 +139,24 @@
     baseSprintSpeed: 3.0
   - type: MeleeHealthDamageModifier
     stages:
-    - damageBegin: 0
-      decreasedIntoMessage: spider-enrage-lower
-      meleeDamage:
-        types:
-          Piercing: 15
-    - damageBegin: 1 # any damage
-      increasedIntoMessage: spider-enrage-stage-one
-      increasedPopupType: MediumCaution
-      decreasedIntoMessage: spider-enrage-lower
-      meleeDamage:
-        types:
-          Piercing: 25
-    - damageBegin: 100 # half health
-      increasedIntoMessage: spider-enrage-stage-two
-      increasedPopupType: LargeCaution
-      meleeDamage:
-        types:
-          Piercing: 35
+      0:
+        decreasedIntoMessage: spider-enrage-lower
+        damage:
+          types:
+            Piercing: 15
+      1: # any damage
+        increasedIntoMessage: spider-enrage-stage-one
+        increasedPopupType: MediumCaution
+        decreasedIntoMessage: spider-enrage-lower
+        damage:
+          types:
+            Piercing: 25
+      100: # half health
+        increasedIntoMessage: spider-enrage-stage-two
+        increasedPopupType: LargeCaution
+        damage:
+          types:
+            Piercing: 35
 
 - type: entity
   id: MobGrayTerrorSpider

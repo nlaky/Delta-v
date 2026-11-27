@@ -30,37 +30,37 @@ public sealed class MeleeHealthDamageModifierSystem : EntitySystem
         UpdateDamageStage(ent, stage, ent.Owner);
     }
 
-    private void UpdateDamageStage(Entity<MeleeHealthDamageModifierComponent> ent, MeleeHealthDamageModifierStage stage, EntityUid? user)
+    private void UpdateDamageStage(Entity<MeleeHealthDamageModifierComponent> ent, KeyValuePair<int, MeleeHealthDamageModifierStage> stage, EntityUid? user)
     {
         // get out if this is already the stage we're in
-        if (ent.Comp.StageIndex == stage.DamageBegin)
+        if (ent.Comp.CurrentStage == stage.Key)
             return;
 
-        TrySetMeleeDamage(ent, stage.MeleeDamage);
+        TrySetMeleeDamage(ent, stage.Value.Damage);
 
-        var increased = ent.Comp.StageIndex < stage.DamageBegin;
+        var increased = ent.Comp.CurrentStage < stage.Key;
 
         var locString = increased
-            ? stage.IncreasedIntoMessage
-            : stage.DecreasedIntoMessage;
+            ? stage.Value.IncreasedIntoMessage
+            : stage.Value.DecreasedIntoMessage;
 
         var popupType = increased
-            ? stage.IncreasedPopupType
-            : stage.DecreasedPopupType;
+            ? stage.Value.IncreasedPopupType
+            : stage.Value.DecreasedPopupType;
 
         if (locString is not null)
             _popup.PopupPredicted(Loc.GetString(locString, ("source", ent)), ent, user, popupType);
 
-        ent.Comp.StageIndex = stage.DamageBegin;
+        ent.Comp.CurrentStage = stage.Key;
         Dirty(ent);
     }
 
-    private MeleeHealthDamageModifierStage? GetCurrentStage(List<MeleeHealthDamageModifierStage> list, FixedPoint2 damage)
+    private KeyValuePair<int, MeleeHealthDamageModifierStage>? GetCurrentStage(SortedDictionary<int, MeleeHealthDamageModifierStage> list, FixedPoint2 damage)
     {
-        MeleeHealthDamageModifierStage? stage = null;
+        KeyValuePair<int, MeleeHealthDamageModifierStage>? stage = null;
         foreach (var current in list)
         {
-            if (current.DamageBegin > damage)
+            if (current.Key > damage)
                 return stage;
 
             stage = current;
